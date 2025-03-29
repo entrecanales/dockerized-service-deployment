@@ -29,6 +29,3 @@ jobs:
           docker build -t entrecanales/node-server .
 
           docker run -d --name node-server -e e USER_NAME=${{ secrets.USER_NAME }} -e PASSWORD=${{ secrets.PASSWORD }} -e SECRET_MESSAGE="${{ secrets.SECRET_MESSAGE }}" -p 8080:8080 node-service
-
-EOF #TODO: EOF Necessary Here?
-          
