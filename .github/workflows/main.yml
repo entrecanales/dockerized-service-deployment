@@ -22,10 +22,10 @@ jobs:
       - name: Clone or Pull Repo on Droplet
         run: |
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
-            if [ ! -d /home/youruser/app/.git ]; then \
+            if [ ! -d ~/app/.git ]; then \
               git clone https://github.com/entrecanales/dockerized-service-deployment.git ~/app; \
             else \
-              cd /home/youruser/app && git pull origin master; \
+              cd ~/app && git pull origin master; \
             fi"
 
       - name: Build Docker Image
