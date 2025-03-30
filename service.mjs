@@ -2,7 +2,8 @@ import { createServer } from 'node:http';
 import { parse } from 'node:url';
 import dotenv from 'dotenv';
 
-const port = 3000;
+const port = 8080;
+const ip = '0.0.0.0'
 
 dotenv.config(); //Load .env
 
@@ -63,6 +64,6 @@ const server = createServer((req, res) => { //Configure the server with the rout
   
 });
 
-server.listen(port, () => { //Run the service
-  console.log(`Server running at port ${port}`);
+server.listen(port, ip, () => { //Run the service
+  console.log(`Server running at port ${port} with IP ${ip}`);
 });
