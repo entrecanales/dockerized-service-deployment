@@ -27,20 +27,18 @@ jobs:
             else \
               cd ~/app && git pull origin master; \
             fi"
-
+      
       - name: Build Docker Image
         run: |
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "cd ~/app"
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker stop node-server"
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker rm node-server"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
             cd ~/app && \
-            docker build -t entrecanales/node-server ."
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
-          cd ~/app && \
-          docker run -d --name node-server \
-            -e USER_NAME=\"${{ secrets.USER_NAME }}\" \
-            -e PASSWORD=\"${{ secrets.PASSWORD }}\" \
-            -e SECRET_MESSAGE=\"${{ secrets.SECRET_MESSAGE }}\" \
-            -p 8080:8080 entrecanales/node-server"
+            docker stop node-server || true && \
+            docker rm node-server || true && \
+            docker build -t entrecanales/node-server . && \
+            docker run -d --name node-server \
+              -e USER_NAME='${{ secrets.USER_NAME }}' \
+              -e PASSWORD='${{ secrets.PASSWORD }}' \
+              -e SECRET_MESSAGE='${{ secrets.SECRET_MESSAGE }}' \
+              -p 8080:8080 entrecanales/node-server"
+
 
