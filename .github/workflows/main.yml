@@ -21,7 +21,7 @@ jobs:
 
       - name: Deploy to Droplet via SSH
         run: |
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} << 'EOF'
+          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}
             cd /home/YOUR_USER/YOUR_PROJECT_DIR # 👈 if needed
 
             git pull origin master
@@ -36,4 +36,3 @@ jobs:
               -e PASSWORD=${{ secrets.PASSWORD }} \
               -e SECRET_MESSAGE="${{ secrets.SECRET_MESSAGE }}" \
               -p 8080:8080 entrecanales/node-server
-EOF
