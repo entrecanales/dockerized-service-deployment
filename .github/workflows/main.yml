@@ -34,6 +34,7 @@ jobs:
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker stop node-server"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker rm node-server"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
+            cd ~/app && \
             docker build -t entrecanales/node-server ."
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
           docker run -d --name node-server \
