@@ -18,16 +18,18 @@ jobs:
           echo "${{ secrets.DROPLET_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.DROPLET_HOST }} >> ~/.ssh/known_hosts
-      
-      - name: Deploy to Droplet via SSH
+          
+      - name: Clone or Pull Repo on Droplet
         run: |
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
             if [ ! -d /home/youruser/app/.git ]; then \
-              git clone https://github.com/entrecanales/dockerized-service-deployment.git app; \
+              git clone https://github.com/entrecanales/dockerized-service-deployment.git ~/app; \
             else \
-              echo 'Repo already cloned'; \
-            fi && \
-            cd ~/app && git pull origin master"
+              cd /home/youruser/app && git pull origin master; \
+            fi"
+
+      - name: Build Docker Image
+        run: |
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker stop node-server || true"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker rm node-server || true"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "cd ~/app && pwd && ls -la"
