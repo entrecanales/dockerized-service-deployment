@@ -21,6 +21,7 @@ jobs:
       
       - name: Deploy to Droplet via SSH
         run: |
+          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "git init"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "git pull origin master"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker stop node-server || true"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker rm node-server || true"
