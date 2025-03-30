@@ -21,8 +21,13 @@ jobs:
       
       - name: Deploy to Droplet via SSH
         run: |
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "git clone https://github.com/entrecanales/dockerized-service-deployment.git app"
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "cd ~/app"
+          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
+            if [ ! -d /home/youruser/app/.git ]; then \
+              git clone https://github.com/entrecanales/dockerized-service-deployment.git app; \
+            else \
+              echo 'Repo already cloned'; \
+            fi && \
+            cd ~/app && git pull origin master"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker stop node-server || true"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker rm node-server || true"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "cd ~/app && pwd && ls -la"
