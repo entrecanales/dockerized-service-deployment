@@ -30,6 +30,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
+          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "cd ~/app"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker stop node-server"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker rm node-server"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
