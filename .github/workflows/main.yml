@@ -22,7 +22,7 @@ jobs:
       - name: Deploy to Droplet via SSH
         run: |
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "git clone https://github.com/entrecanales/dockerized-service-deployment.git app"
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "cd app"
+          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "cd ~/app"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker stop node-server || true"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker rm node-server || true"
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker build -t entrecanales/node-server ."
