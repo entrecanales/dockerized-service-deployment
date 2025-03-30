@@ -29,9 +29,11 @@ jobs:
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
             cd ~/app && \
             docker build -t entrecanales/node-server ."
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "docker run -d --name node-server \
-            -e USER_NAME=${{ secrets.USER_NAME }} \
-            -e PASSWORD=${{ secrets.PASSWORD }} \
-            -e SECRET_MESSAGE="${{ secrets.SECRET_MESSAGE }}" \
+          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "\
+          cd /home/youruser/app && \
+          docker run -d --name node-server \
+            -e USER_NAME=\"${{ secrets.USER_NAME }}\" \
+            -e PASSWORD=\"${{ secrets.PASSWORD }}\" \
+            -e SECRET_MESSAGE=\"${{ secrets.SECRET_MESSAGE }}\" \
             -p 8080:8080 entrecanales/node-server"
 
