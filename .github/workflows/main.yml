@@ -2,7 +2,7 @@ name: Deploy a Dockerized Node.js service to DigitalOcean
 
 on:
   push:
-    branches: [master, test]
+    branches: [master]
 
 jobs:
   deploy:
