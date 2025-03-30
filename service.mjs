@@ -15,7 +15,7 @@ const server = createServer((req, res) => { //Configure the server with the rout
   if (method == 'GET') {
     if (path == '/') {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
-      res.end("There's nothing here, sorry!\n");
+      res.end("There's nothing here, sorry :(!\n");
     }
     else if (path == '/route') {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
